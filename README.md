@@ -1,68 +1,85 @@
 # NLP Personal Assistant
 
-This project is a Natural Language Processing (NLP) based personal assistant that can manage your calendar, answer FAQs, and interact with you through a web-based chat interface.
+This project is a personal assistant application that uses natural language processing (NLP) to manage tasks such as reminders and user management.
 
 ## Features
 
-- **FAQ Management**: The assistant can answer frequently asked questions.
-- **Calendar Management**: The assistant can create reminders and display them on a visual calendar.
-- **Chat Interface**: Users can interact with the assistant through a web-based chat interface.
+- User authentication (login and logout)
+- Role-based access control (Admin and User)
+- Manage reminders
+- Manage users (Admin only)
 
-## Requirements
+## Setup
 
-- Python 3.6+
+### Prerequisites
+
+- Python 3.7+
 - Flask
-- nltk
-- python-dateutil
-- pytz
-- requests
-- spacy
-- msal
-- tkcalendar
-- FullCalendar (JavaScript library)
+- Flask-SQLAlchemy
+- Flask-Migrate
+- Werkzeug
 
-## Installation
+### Installation
 
 1. Clone the repository:
+
     ```sh
     git clone https://github.com/yourusername/nlp-personal-assistant.git
     cd nlp-personal-assistant
     ```
 
-2. Install the required Python packages:
+2. Create a virtual environment and activate it:
+
+    ```sh
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    ```
+
+3. Install the required packages:
+
     ```sh
     pip install -r requirements.txt
     ```
 
-3. Download the spaCy language model:
+4. Initialize the database:
+
     ```sh
-    python -m spacy download en_core_web_md
+    flask db init
+    flask db migrate -m "Initial migration"
+    flask db upgrade
     ```
 
-## Usage
+5. Create an admin user:
+
+    ```sh
+    python src/create_admin.py
+    ```
+
+### Running the Application
 
 1. Start the Flask application:
+
     ```sh
-    cd src
-    python app.py
+    flask run
     ```
 
-2. Open your web browser and navigate to `http://127.0.0.1:5000`.
+2. Open your web browser and go to `http://127.0.0.1:5000`.
 
-3. Interact with the assistant through the chat interface. You can use commands like:
-    - `add reminder to [subject] at [time] on [date]`
-    - `show me reminder`
-    - `show calendar`
-    - `help`
+### Usage
 
-## Example Commands
+#### Logging in as Admin
 
-- `add reminder to go to office at 10:00 AM on 15 Feb`
-- `show me reminder`
-- `show calendar`
-- `help`
+1. Go to the login page.
+2. Enter the admin email and password created during setup.
+3. Click the login button.
 
-## Project Structure
+#### Managing Users
+
+1. After logging in as an admin, you will see a "Manage Users" button on the top of the chatbox.
+2. Click the "Manage Users" button to go to the users management page.
+3. On the users management page, you can see the list of users and add new users using the provided form.
+
+### Project Structure
 
 ```
 nlp-personal-assistant
